@@ -14,35 +14,40 @@ class MapView (context: Context, attrs: AttributeSet? = null): View(context, att
         var nextX = 50F
         var nextY = 50F
         val mount: Bitmap
+        val forest:Bitmap
+        val grass : Bitmap
+        val ocean : Bitmap
 
 
 
         init {
            //load images
             mount = BitmapFactory.decodeResource(resources, R.drawable.mountain,null)
-
+            forest = BitmapFactory.decodeResource(resources, R.drawable.forest,null)
+            grass = BitmapFactory.decodeResource(resources, R.drawable.plain,null)
+            ocean = BitmapFactory.decodeResource(resources, R.drawable.water,null)
         }
         // displayed on canvas
         override fun onDraw(canvas: Canvas) {
             var X = 0F
             var Y = 0F
-            //Log.i("CS220", "On draw ")
-           // canvas.drawBitmap(mount, X, Y, null)
-           // canvas.drawBitmap(mount, X + 150F, Y , null)
-            var col = 0
-            var row = 0
-            for (col in 0..10){
 
-                canvas.drawBitmap(mount, X , Y , null)
+            val imageList = arrayOf(arrayOf<Bitmap>(mount, forest, grass,ocean),arrayOf<Bitmap>(mount, forest, grass,ocean))
+
+            for (i in imageList){
+
+
+                Log.i("cs22", "solution ${i}")
                 X += 150F
-                Log.i("CS220", "On draw2 ${col}")
-                for (row in 0..10){
-                    //if statement  
+                //Log.i("CS220", "On draw2")
+                for (j in imageList){
+                    // canvas.drawBitmap(imageList[j], X , Y , null)
+                    Log.i("CS220", "On draw2${j}")
 
                 }
 
-
             }
+
 
 
 
