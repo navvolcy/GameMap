@@ -13,15 +13,15 @@ class MapView (context: Context, attrs: AttributeSet? = null): View(context, att
 
         var nextX = 50F
         var nextY = 50F
-        val mount: Bitmap
-        val forest:Bitmap
+        val mount:  Bitmap
+        val forest: Bitmap
         val grass : Bitmap
         val ocean : Bitmap
 
 
 
         init {
-           //load images
+            // Load images
             mount = BitmapFactory.decodeResource(resources, R.drawable.mountain,null)
             forest = BitmapFactory.decodeResource(resources, R.drawable.forest,null)
             grass = BitmapFactory.decodeResource(resources, R.drawable.plain,null)
@@ -31,27 +31,25 @@ class MapView (context: Context, attrs: AttributeSet? = null): View(context, att
         override fun onDraw(canvas: Canvas) {
             var X = 0F
             var Y = 0F
+            var r = 0
+            var c = 0
 
-            val imageList = arrayOf(arrayOf<Bitmap>(mount, forest, grass,ocean),arrayOf<Bitmap>(mount, forest, grass,ocean))
+            val imageList = arrayOf(arrayOf<Bitmap>(mount, mount,mount,mount), arrayOf<Bitmap>(forest, forest,forest,forest), arrayOf<Bitmap>(grass, grass,grass,grass), arrayOf<Bitmap>(ocean, ocean,ocean,ocean))
 
-            for (i in imageList){
+            for (row in imageList) {
+                //track coordinates
+                for (image in row) {
+                    //calculate x from c and y from r
+                    // canvas.drawBitmap(imageList[r][c], X, Y, null)
+                    canvas.drawBitmap(image, X, Y, null)
+                    X += 150F
 
 
-                Log.i("cs22", "solution ${i}")
-                X += 150F
-                //Log.i("CS220", "On draw2")
-                for (j in imageList){
-                    // canvas.drawBitmap(imageList[j], X , Y , null)
-                    Log.i("CS220", "On draw2${j}")
 
                 }
-
+                Y += 150F
+                X = 0F
             }
-
-
-
-
-
 
         }
 
