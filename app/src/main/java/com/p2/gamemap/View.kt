@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import androidx.lifecycle.Transformations.map
 
 class MapView (context: Context, attrs: AttributeSet? = null): View(context, attrs) {
 
@@ -26,6 +27,10 @@ class MapView (context: Context, attrs: AttributeSet? = null): View(context, att
             forest = BitmapFactory.decodeResource(resources, R.drawable.forest,null)
             grass = BitmapFactory.decodeResource(resources, R.drawable.plain,null)
             ocean = BitmapFactory.decodeResource(resources, R.drawable.water,null)
+
+
+              //val map = mapOf<Char, Bitmap>('M' to BitmapFactory.decodeResource(resources, R.drawable.mountain,null), 'F' to BitmapFactory.decodeResource(resources, R.drawable.forest,null), '.' to BitmapFactory.decodeResource(resources, R.drawable.plain,null), '~' to BitmapFactory.decodeResource(resources, R.drawable.water,null))
+
         }
         // displayed on canvas
         override fun onDraw(canvas: Canvas) {
@@ -34,17 +39,21 @@ class MapView (context: Context, attrs: AttributeSet? = null): View(context, att
             var r = 0
             var c = 0
 
-            val imageList = arrayOf(arrayOf<Bitmap>(mount, mount,mount,mount), arrayOf<Bitmap>(forest, forest,forest,forest), arrayOf<Bitmap>(grass, grass,grass,grass), arrayOf<Bitmap>(ocean, ocean,ocean,ocean))
 
+            //map of images with a specific key<map>
+            val map = hashMapOf<Char, Bitmap?>('M' to BitmapFactory.decodeResource(resources, R.drawable.mountain,null), 'F' to BitmapFactory.decodeResource(resources, R.drawable.forest,null), '.' to BitmapFactory.decodeResource(resources, R.drawable.plain,null), '~' to BitmapFactory.decodeResource(resources, R.drawable.water,null))
+            // array of chars
+            val imageList = arrayOf(arrayOf<Char>('M', 'M', 'M', 'M'),arrayOf<Char>('F', 'F', 'F', 'F'),arrayOf<Char>('.', '.', '.', '.'), arrayOf<Char>('~', '~', '~', '~'))
+
+            Log.i("cs22", "map ${map['M']}")
             for (row in imageList) {
-                //track coordinates
-                for (image in row) {
+
+                for (terrain in row) {
                     //calculate x from c and y from r
-                    // canvas.drawBitmap(imageList[r][c], X, Y, null)
-                    canvas.drawBitmap(image, X, Y, null)
+                    //one of Kotlin's Scope functions which allow you to execute a code block within the context of an object
+                    map[terrain]?.let {canvas.drawBitmap(it, X, Y, null)}
+                    Log.i("cs22", "map ${terrain}")
                     X += 150F
-
-
 
                 }
                 Y += 150F
