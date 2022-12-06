@@ -18,6 +18,7 @@ class MapView (context: Context, attrs: AttributeSet? = null): View(context, att
         val forest: Bitmap
         val grass : Bitmap
         val ocean : Bitmap
+        var person: Bitmap
 
 
 
@@ -27,6 +28,7 @@ class MapView (context: Context, attrs: AttributeSet? = null): View(context, att
             forest = BitmapFactory.decodeResource(resources, R.drawable.forest,null)
             grass = BitmapFactory.decodeResource(resources, R.drawable.plain,null)
             ocean = BitmapFactory.decodeResource(resources, R.drawable.water,null)
+            person = BitmapFactory.decodeResource(resources,R.drawable.person,null)
 
 
               //val map = mapOf<Char, Bitmap>('M' to BitmapFactory.decodeResource(resources, R.drawable.mountain,null), 'F' to BitmapFactory.decodeResource(resources, R.drawable.forest,null), '.' to BitmapFactory.decodeResource(resources, R.drawable.plain,null), '~' to BitmapFactory.decodeResource(resources, R.drawable.water,null))
@@ -52,9 +54,9 @@ class MapView (context: Context, attrs: AttributeSet? = null): View(context, att
                     //calculate x from c and y from r
                     //one of Kotlin's Scope functions which allow you to execute a code block within the context of an object
                     map[terrain]?.let {canvas.drawBitmap(it, X, Y, null)}
+                    map[terrain]?.let{canvas.drawBitmap(person,nextX,nextY,null)}
                     Log.i("cs22", "map ${terrain}")
                     X += 150F
-
                 }
                 Y += 150F
                 X = 0F
